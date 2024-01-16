@@ -12,7 +12,7 @@ if __name__ == '__main__':
     while player_chips.available - float(bet_amount) < 0:
         print(f'Chips available: £{player_chips.available}\n')
         bet_amount = input(
-        'Place your bet by typing in number (e.g., 1 == £1.00):\n')
+            'Place your bet by typing in number (e.g., 1 == £1.00):\n')
         if player_chips.available - float(bet_amount) >= 0:
             break
         print('You have insufficient funds')
@@ -23,4 +23,4 @@ if __name__ == '__main__':
     dealer_card = cards.deal_one_card()
     player_card_two = cards.deal_one_card()
 
-
+    player_hand = Hand(player_card_one, player_card_two)
