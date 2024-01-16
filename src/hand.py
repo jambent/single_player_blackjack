@@ -10,7 +10,6 @@ class Hand:
     def __repr__(self):
         return f'Hand({self.cards})'
 
-    
     def value(self):
         hand_value = 0
         number_of_aces = 0
@@ -39,6 +38,5 @@ class Hand:
         else:
             return hand_value
 
-    
-    def add_to_hand(self,card):
+    def add_to_hand(self, card):
         self.cards.append(card)

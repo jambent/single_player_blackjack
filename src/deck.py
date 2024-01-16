@@ -14,7 +14,7 @@ class Deck:
         for suit in suits:
             for rank in ranks:
                 deck.append(Card(rank, suit))
-                
+
         self.deck = deck
 
     def __repr__(self):

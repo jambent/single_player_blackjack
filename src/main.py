@@ -25,35 +25,32 @@ if __name__ == '__main__':
 
         player_chips.place_bet(bet_amount)
 
-        
         player_card_one = cards.deal_one_card()
         dealer_card_one = cards.deal_one_card()
         player_card_two = cards.deal_one_card()
 
-        
         player_hand = Hand(player_card_one, player_card_two)
         player_hand_value = player_hand.value()
 
         dealer_hand = Hand(dealer_card_one)
 
-        table = Table(player_chips.available,bet_amount)
-        table.update(player_hand,dealer_hand)
-        
+        table = Table(player_chips.available, bet_amount)
+        table.update(player_hand, dealer_hand)
+
         if player_hand_value == 21:
 
             dealer_card_two = cards.deal_one_card()
             dealer_hand.add_to_hand(dealer_card_two)
-            table.update(player_hand,dealer_hand)
+            table.update(player_hand, dealer_hand)
 
             if dealer_hand.value() != 21:
-                player_chips.add_winnings(bet_amount,True)
+                player_chips.add_winnings(bet_amount, True)
                 print('\nYou win')
                 print(f'Chips available: £{player_chips.available}\n')
             else:
                 player_chips.return_bet(bet_amount)
                 print("\nIt's a tie")
                 print(f'Chips available: £{player_chips.available}\n')
-
 
         else:
 
@@ -63,36 +60,38 @@ if __name__ == '__main__':
                 if player_instruction == 'h':
                     new_player_card = cards.deal_one_card()
                     player_hand.add_to_hand(new_player_card)
-                    table.update(player_hand,dealer_hand)
+                    table.update(player_hand, dealer_hand)
                     if player_hand.value() > 21:
                         break
 
-            
             dealer_card_two = cards.deal_one_card()
             dealer_hand.add_to_hand(dealer_card_two)
-            table.update(player_hand,dealer_hand)
+            table.update(player_hand, dealer_hand)
             while dealer_hand.value() < 17:
                 new_dealer_card = cards.deal_one_card()
                 dealer_hand.add_to_hand(new_dealer_card)
-                table.update(player_hand,dealer_hand)
+                table.update(player_hand, dealer_hand)
 
             player_hand_value = player_hand.value()
             dealer_hand_value = dealer_hand.value()
             if dealer_hand_value > 21 and player_hand_value <= 21:
-                player_chips.add_winnings(bet_amount,False)
+                player_chips.add_winnings(bet_amount, False)
                 print('\nYou win')
                 print(f'Chips available: £{player_chips.available}\n')
-            elif player_hand_value > dealer_hand_value and player_hand_value <= 21:
-                player_chips.add_winnings(bet_amount,False)
+            elif (player_hand_value > dealer_hand_value
+                  and player_hand_value <= 21):
+                player_chips.add_winnings(bet_amount, False)
                 print('\nYou win')
                 print(f'Chips available: £{player_chips.available}\n')
             elif dealer_hand_value > 21 and player_hand_value > 21:
                 print('\nDealer wins')
                 print(f'Chips available: £{player_chips.available}\n')
-            elif dealer_hand_value > player_hand_value and dealer_hand_value <= 21:
+            elif (dealer_hand_value > player_hand_value
+                  and dealer_hand_value <= 21):
                 print('\nDealer wins')
                 print(f'Chips available: £{player_chips.available}\n')
-            elif dealer_hand_value == player_hand_value and player_hand_value <= 21:
+            elif (dealer_hand_value == player_hand_value
+                  and player_hand_value <= 21):
                 player_chips.return_bet(bet_amount)
                 print("\nIt's a tie")
                 print(f'Chips available: £{player_chips.available}\n')
@@ -100,4 +99,3 @@ if __name__ == '__main__':
         another_round = input('Would you like to play another round? (y/n)\n')
 
     print(f'\nYou leave the table with £{player_chips.available}')
-
