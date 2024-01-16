@@ -18,7 +18,7 @@ if __name__ == '__main__':
         while player_chips.available - float(bet_amount) < 0:
             print(f'Chips available: £{player_chips.available}\n')
             bet_amount = input(
-                'Place your bet by typing in number (e.g., 1 == £1.00):\n')
+                'Place your bet by typing in number (e.g., 1 == £1.00): ')
             if player_chips.available - float(bet_amount) >= 0:
                 break
             print('You have insufficient funds')
@@ -47,23 +47,24 @@ if __name__ == '__main__':
 
             if dealer_hand.value() != 21:
                 player_chips.add_winnings(bet_amount,True)
-                print('You win')
+                print('\nYou win')
+                print(f'Chips available: £{player_chips.available}\n')
             else:
                 player_chips.return_bet(bet_amount)
-                print("It's a tie")
+                print("\nIt's a tie")
+                print(f'Chips available: £{player_chips.available}\n')
 
 
         else:
 
             player_instruction = ''
             while player_instruction != 's':
-                player_instruction = input("Hit or Stand? (type 'h' or 's')")
+                player_instruction = input("\nHit or Stand? (type 'h' or 's')")
                 if player_instruction == 'h':
                     new_player_card = cards.deal_one_card()
                     player_hand.add_to_hand(new_player_card)
                     table.update(player_hand,dealer_hand)
                     if player_hand.value() > 21:
-                        print('Dealer wins')
                         break
 
             
@@ -77,19 +78,26 @@ if __name__ == '__main__':
 
             player_hand_value = player_hand.value()
             dealer_hand_value = dealer_hand.value()
-            if dealer_hand_value > 21:
+            if dealer_hand_value > 21 and player_hand_value <= 21:
                 player_chips.add_winnings(bet_amount,False)
-                print('You win\n')
-            elif player_hand_value > dealer_hand_value:
+                print('\nYou win')
+                print(f'Chips available: £{player_chips.available}\n')
+            elif player_hand_value > dealer_hand_value and player_hand_value <= 21:
                 player_chips.add_winnings(bet_amount,False)
-                print('You win\n')
-            elif dealer_hand_value > player_hand_value:
-                print('Dealer wins\n')
-            elif dealer_hand_value == player_hand_value:
+                print('\nYou win')
+                print(f'Chips available: £{player_chips.available}\n')
+            elif dealer_hand_value > 21 and player_hand_value > 21:
+                print('\nDealer wins')
+                print(f'Chips available: £{player_chips.available}\n')
+            elif dealer_hand_value > player_hand_value and dealer_hand_value <= 21:
+                print('\nDealer wins')
+                print(f'Chips available: £{player_chips.available}\n')
+            elif dealer_hand_value == player_hand_value and player_hand_value <= 21:
                 player_chips.return_bet(bet_amount)
-                print("It's a tie\n")
+                print("\nIt's a tie")
+                print(f'Chips available: £{player_chips.available}\n')
 
         another_round = input('Would you like to play another round? (y/n)\n')
 
-    print(f'You leave the table with £{player_chips.available}')
+    print(f'\nYou leave the table with £{player_chips.available}')
 
