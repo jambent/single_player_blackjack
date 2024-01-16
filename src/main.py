@@ -1,6 +1,7 @@
 from src.deck import Deck
 from src.chips import Chips
 from src.hand import Hand
+from src.table import Table
 
 
 if __name__ == '__main__':
@@ -32,11 +33,18 @@ if __name__ == '__main__':
         
         player_hand = Hand(player_card_one, player_card_two)
         player_hand_value = player_hand.value()
+
+        dealer_hand = Hand(dealer_card_one)
+
+        table = Table(player_chips.available,bet_amount)
+        table.update(player_hand,dealer_hand)
         
         if player_hand_value == 21:
 
             dealer_card_two = cards.deal_one_card()
-            dealer_hand = Hand(dealer_card_one, dealer_card_two)
+            dealer_hand.add_to_hand(dealer_card_two)
+            table.update(player_hand,dealer_hand)
+
             if dealer_hand.value() != 21:
                 player_chips.add_winnings(bet_amount,True)
                 print('You win')
@@ -48,21 +56,24 @@ if __name__ == '__main__':
         else:
 
             player_instruction = ''
-            while player_instruction is not 's':
+            while player_instruction != 's':
                 player_instruction = input("Hit or Stand? (type 'h' or 's')")
                 if player_instruction == 'h':
                     new_player_card = cards.deal_one_card()
                     player_hand.add_to_hand(new_player_card)
+                    table.update(player_hand,dealer_hand)
                     if player_hand.value() > 21:
                         print('Dealer wins')
                         break
 
             
             dealer_card_two = cards.deal_one_card()
-            dealer_hand = Hand(dealer_card_one, dealer_card_two)
+            dealer_hand.add_to_hand(dealer_card_two)
+            table.update(player_hand,dealer_hand)
             while dealer_hand.value() < 17:
                 new_dealer_card = cards.deal_one_card()
                 dealer_hand.add_to_hand(new_dealer_card)
+                table.update(player_hand,dealer_hand)
 
             player_hand_value = player_hand.value()
             dealer_hand_value = dealer_hand.value()
