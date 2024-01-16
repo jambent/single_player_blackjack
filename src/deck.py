@@ -14,7 +14,11 @@ class Deck:
         for suit in suits:
             for rank in ranks:
                 deck.append(Card(rank, suit))
+                
         self.deck = deck
+
+    def __repr__(self):
+        return 'Deck()'
 
     def shuffle(self):
         "Shuffles cards in deck"

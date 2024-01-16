@@ -6,6 +6,9 @@ class Chips:
     def __init__(self, cash):
         self.available = cash
 
+    def __repr__(self):
+        return f'Chips({self.available})'
+
     def place_bet(self, bet_amount):
         bet_amount_as_number = float(bet_amount)
         if self.available - bet_amount_as_number >= 0:

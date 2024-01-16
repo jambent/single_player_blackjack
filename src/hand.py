@@ -7,6 +7,9 @@ class Hand:
     def __init__(self, *cards):
         self.cards = [card for card in cards]
 
+    def __repr__(self):
+        return f'Hand({self.cards})'
+
     
     def value(self):
         hand_value = 0

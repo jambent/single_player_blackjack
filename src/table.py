@@ -1,8 +1,11 @@
 class Table:
-    "Playing table display"
+    "Playing table display for current round"
     def __init__(self,player_chips,bet_amount):
         self.player_chips = player_chips
         self.bet_amount = bet_amount
+
+    def __repr__(self):
+        return f'Table({self.player_chips},{self.bet_amount})'
 
     def update(self,player_hand,dealer_hand):
         print('\n')
