@@ -7,6 +7,7 @@ class Hand:
     def __init__(self, *cards):
         self.cards = [card for card in cards]
 
+    
     def value(self):
         hand_value = 0
         number_of_aces = 0
@@ -34,3 +35,7 @@ class Hand:
             return max(final_hand_value_possibilities)
         else:
             return hand_value
+
+    
+    def add_to_hand(self,card):
+        self.cards.append(card)
