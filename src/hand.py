@@ -27,6 +27,7 @@ class Hand:
         if number_of_aces > 0:
             ace_values_possibilities = \
                 combinations_with_replacement([1, 11], number_of_aces)
+            
             for possibility in ace_values_possibilities:
                 possible_final_hand_value = hand_value
                 for ace_value in possibility:
@@ -34,7 +35,12 @@ class Hand:
                 if possible_final_hand_value <= 21:
                     final_hand_value_possibilities.append(
                         possible_final_hand_value)
-            return max(final_hand_value_possibilities)
+            if len(final_hand_value_possibilities) == 0:
+                # Forced return of bust hand value if no 
+                # possible final hand values below 22 exist 
+                return 22  
+            else:
+                return max(final_hand_value_possibilities)
         else:
             return hand_value
 
